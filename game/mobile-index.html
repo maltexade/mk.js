@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>MK.js - Mobile Fighting Game</title>
+    <link rel="stylesheet" href="styles/mobile-styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Menu Screen -->
+        <div id="menuScreen" class="screen active">
+            <div class="menu-container">
+                <h1 class="game-title">MK.JS</h1>
+                <p class="subtitle">Mobile Fighting Game</p>
+                <div class="menu-buttons">
+                    <button id="startBtn" class="menu-btn start-btn">START GAME</button>
+                    <button id="instructionsBtn" class="menu-btn instructions-btn">HOW TO PLAY</button>
+                    <button id="aboutBtn" class="menu-btn about-btn">ABOUT</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Screen -->
+        <div id="instructionsScreen" class="screen">
+            <div class="instructions-container">
+                <h2>HOW TO PLAY</h2>
+                <div class="instructions-content">
+                    <div class="section">
+                        <h3>🎮 PLAYER 1 CONTROLS (Left Side)</h3>
+                        <ul>
+                            <li><strong>D-Pad:</strong> Move left/right, jump</li>
+                            <li><strong>Down:</strong> Squat (blocks high attacks)</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3>⚔️ PLAYER 2 CONTROLS (Right Side)</h3>
+                        <ul>
+                            <li><strong>High Punch:</strong> Strong punch attack</li>
+                            <li><strong>Low Punch:</strong> Quick punch attack</li>
+                            <li><strong>High Kick:</strong> Strong kick attack</li>
+                            <li><strong>Low Kick:</strong> Quick kick attack</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3>💡 TIPS</h3>
+                        <ul>
+                            <li>Each attack has different damage and range</li>
+                            <li>Squat to avoid high attacks</li>
+                            <li>Reduce opponent's health to 0 to win</li>
+                            <li>React quickly and dodge incoming attacks</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                        <h3>🏆 COMBO SYSTEM</h3>
+                        <ul>
+                            <li><strong>Quick Combos:</strong> Low Punch + High Punch</li>
+                            <li><strong>Powerful:</strong> Jump + Kick</li>
+                            <li><strong>Devastating:</strong> Jump + Punch in air</li>
+                        </ul>
+                    </div>
+                </div>
+                <button id="backFromInstructions" class="menu-btn">BACK</button>
+            </div>
+        </div>
+
+        <!-- About Screen -->
+        <div id="aboutScreen" class="screen">
+            <div class="about-container">
+                <h2>ABOUT</h2>
+                <div class="about-content">
+                    <p><strong>MK.JS Mobile</strong> is an HTML5 fighting game built with Canvas and JavaScript.</p>
+                    <p><strong>Original Game:</strong> Minko Gechev (@mgechev)</p>
+                    <p><strong>Mobile Version:</strong> Enhanced with touch controls and responsive design</p>
+                    <p><strong>Technologies:</strong> HTML5 Canvas, Vanilla JavaScript, CSS3</p>
+                    <p><strong>License:</strong> MIT</p>
+                    <p class="version">Version 2.0 - Mobile Enhanced</p>
+                </div>
+                <button id="backFromAbout" class="menu-btn">BACK</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-container">
+                <!-- HUD -->
+                <div class="hud">
+                    <div class="player-info player1-info">
+                        <div class="player-name">Player 1</div>
+                        <div class="health-bar-container">
+                            <div id="player1HealthBar" class="health-bar">
+                                <div id="player1HealthFill" class="health-fill"></div>
+                            </div>
+                        </div>
+                        <div id="player1HealthText" class="health-text">100/100</div>
+                    </div>
+
+                    <div class="round-info">
+                        <div id="roundText" class="round-text">ROUND 1</div>
+                        <div id="statusText" class="status-text">GET READY!</div>
+                    </div>
+
+                    <div class="player-info player2-info">
+                        <div class="player-name">Player 2</div>
+                        <div class="health-bar-container">
+                            <div id="player2HealthBar" class="health-bar">
+                                <div id="player2HealthFill" class="health-fill"></div>
+                            </div>
+                        </div>
+                        <div id="player2HealthText" class="health-text">100/100</div>
+                    </div>
+                </div>
+
+                <!-- Game Arena -->
+                <div id="gameArena" class="arena"></div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <!-- Player 1 Controls (Left) -->
+                    <div class="player-controls p1-controls">
+                        <div class="dpad">
+                            <button id="p1Up" class="dpad-btn up" data-action="up">↑</button>
+                            <div class="dpad-middle">
+                                <button id="p1Left" class="dpad-btn left" data-action="left">←</button>
+                                <button id="p1Down" class="dpad-btn down" data-action="down">↓</button>
+                                <button id="p1Right" class="dpad-btn right" data-action="right">→</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center Button -->
+                    <div class="center-controls">
+                        <button id="pauseBtn" class="menu-btn pause-btn">PAUSE</button>
+                    </div>
+
+                    <!-- Player 2 Controls (Right) -->
+                    <div class="player-controls p2-controls">
+                        <div class="action-buttons">
+                            <button id="p2HP" class="action-btn hp-btn" data-action="hp">HP</button>
+                            <button id="p2LP" class="action-btn lp-btn" data-action="lp">LP</button>
+                            <button id="p2HK" class="action-btn hk-btn" data-action="hk">HK</button>
+                            <button id="p2LK" class="action-btn lk-btn" data-action="lk">LK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen">
+            <div class="pause-container">
+                <h2>PAUSED</h2>
+                <div class="pause-buttons">
+                    <button id="resumeBtn" class="menu-btn">RESUME</button>
+                    <button id="quitBtn" class="menu-btn">QUIT TO MENU</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen">
+            <div class="gameover-container">
+                <h2 id="gameOverTitle">YOU WIN!</h2>
+                <div id="gameOverStats" class="gameover-stats">
+                    <p>Victory!</p>
+                </div>
+                <div class="gameover-buttons">
+                    <button id="playAgainBtn" class="menu-btn">PLAY AGAIN</button>
+                    <button id="menuBtn" class="menu-btn">MAIN MENU</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <script src="src/mk.js"></script>
+    <script src="src/touch-controller.js"></script>
+    <script src="src/mobile-game.js"></script>
+</body>
+</html>
